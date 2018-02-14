@@ -2,4 +2,4 @@ FROM postgres
 WORKDIR /PostgreSQL
 ADD . /PostgreSQL
 
-CMD ["schema.sql"]
+CMD [psql -f "schema.sql"]
