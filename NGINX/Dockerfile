@@ -1,0 +1,5 @@
+FROM nginx
+WORKDIR /NGINX
+ADD . /NGINX
+
+
