@@ -1,5 +1,3 @@
-FROM postgres
+FROM postgres:latest
 WORKDIR /PostgreSQL
 ADD . /PostgreSQL
-
-CMD [psql -f "/PostgreSQL/schema.sql"]
