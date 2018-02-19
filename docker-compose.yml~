@@ -1,18 +1,17 @@
 version: "3"
 services:
+  db:
+    image: postgres1
+    environment:
+      POSTGRES_USER: postgres
 
-db:
-  image: postgres1
-  environment:
-    POSTGRES_USER: postgres
+  web:
+    image: nginx1
+    ports:
+     - "6060:80"
+    environment:
+     - NGINX_PORT=80
+    command: /bin/bash -c " nginx -g 'daemon off;'"
 
-web:
-  image: nginx1
-  ports:
-   - "6060:80"
-  environment:
-   - NGINX_PORT=80
-  command: /bin/bash -c " nginx -g 'daemon off;'"
-
-app:
-  image: goapp1
+  app:
+    image: goapp1
