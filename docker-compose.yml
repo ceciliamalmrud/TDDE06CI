@@ -2,9 +2,9 @@ version: "3"
 services:
 
 db:
-	image: postgres1
-	environment:
-		POSTGRES_USER: postgres
+  image: postgres1
+  environment:
+    POSTGRES_USER: postgres
 
 web:
   image: nginx1
@@ -15,4 +15,4 @@ web:
   command: /bin/bash -c " nginx -g 'daemon off;'"
 
 app:
-	image: goapp1
+  image: goapp1
