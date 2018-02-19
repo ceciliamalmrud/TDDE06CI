@@ -13,7 +13,7 @@ services:
      - "6060:80"
     environment:
      - NGINX_PORT=80
-    command: sh -c "envsubst < /etc/nginx/conf.d/mysite.template > /NGINX/nginx.conf && nginx -g 'daemon off;'"
+    command: /bin/bash -c "./NGINX/nginx.conf && nginx -g 'daemon off;'"
 
   app:
     image: goapp1
