@@ -3,6 +3,8 @@ WORKDIR /go/src/app
 ADD . /go/src/app
 
 RUN go get -d -v ./...
+RUN go get github.com/lib/pq
 RUN go install -v ./...
 
+CMD ["go build"]
 CMD ["app"]

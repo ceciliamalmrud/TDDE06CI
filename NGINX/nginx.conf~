@@ -22,7 +22,6 @@ http {
         location / {
             # TODO: Update the url
             proxy_pass http://app:6060;
-		# Porten var 8080 innan
         }
     }
 }
