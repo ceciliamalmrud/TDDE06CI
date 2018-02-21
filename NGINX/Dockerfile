@@ -2,5 +2,4 @@ FROM nginx
 WORKDIR /NGINX
 ADD . /NGINX
 
-CMD ["nginx -g 'daemon off;'"]
-CMD ["nginx", "-c", "nginx.conf"]
+CMD ["nginx","-c","/nginx.conf", "-g", "daemon off;"]
