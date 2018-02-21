@@ -4,6 +4,3 @@ ADD . /NGINX
 
 RUN ["nginx", "-t", "-c", "/nginx.conf"] 
 CMD ["nginx","-c","/nginx.conf", "-g", "daemon off;"]
-
-7
-RUN ["nginx", "-t", "-c", "/nginx.conf"] 
