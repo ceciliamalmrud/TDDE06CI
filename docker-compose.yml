@@ -6,7 +6,7 @@ services:
       POSTGRES_USER: postgres
 
   web:
-    build: ./NGINX/Dockerfile
+    build: ./NGINX
     ports:
      - "6060:80"
     environment:
