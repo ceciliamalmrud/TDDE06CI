@@ -18,7 +18,6 @@ RUN apt-get update && apt-get upgrade -y \
       && apt-get clean \
       && rm -rf /var/lib/apt/lists/* \
       && rm -rf /tmp/*
-COPY docker-entrypoint.sh /usr/local/bin/
 
 RUN rm -rf "$PG_BASE" && mkdir -p "$PG_BASE" && chown -R postgres:postgres "$PG_BASE" \
       && mkdir -p /var/run/postgresql/$PG_VERSION-main.pg_stat_tmp \
@@ -38,4 +37,5 @@ EXPOSE 5432
 WORKDIR /PostgreSQL
 ADD . /PostgreSQL
 
+CMD ["exec", "${PG_BINDIR}/postgres", "-D", "${PG_DATA}", "-c", "config_file=${PG_CONFIG_FILE}"]
 CMD ["psql", "-U", "postgres", "-f", "schema.sql","-h","127.0.0.1", "-p", "5432", "postgres"]
