@@ -22,7 +22,6 @@ RUN apt-get update && apt-get upgrade -y \
 RUN rm -rf "$PG_BASE" && mkdir -p "$PG_BASE" && chown -R postgres:postgres "$PG_BASE" \
       && mkdir -p /var/run/postgresql/$PG_VERSION-main.pg_stat_tmp \
       && chown -R postgres:postgres /var/run/postgresql && chmod g+s /var/run/postgresql \
-      && chmod +x /usr/local/bin/docker-entrypoint.sh
 
 RUN echo "host all  all    0.0.0.0/0  md5" >> $PG_CONFIG_DIR/pg_hba.conf \
       && echo "host all  all    ::/0  md5" >> $PG_CONFIG_DIR/pg_hba.conf \
@@ -37,5 +36,5 @@ EXPOSE 5432
 WORKDIR /PostgreSQL
 ADD . /PostgreSQL
 
-CMD ["exec", "${PG_BINDIR}/postgres", "-D", "${PG_DATA}", "-c", "config_file=${PG_CONFIG_FILE}"]
+CMD ["postgres", -D", "${PG_DATA}", "-c", "config_file=${PG_CONFIG_FILE}"]
 CMD ["psql", "-U", "postgres", "-f", "schema.sql","-h","127.0.0.1", "-p", "5432", "postgres"]
