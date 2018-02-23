@@ -4,6 +4,8 @@ services:
     build: ./PostgreSQL
     environment:
       POSTGRES_USER: postgres
+    ports:
+     - "5432"
 
   web:
     build: ./NGINX
