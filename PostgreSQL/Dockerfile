@@ -14,12 +14,7 @@ RUN apt-get update && apt-get upgrade -y \
            postgresql-$PG_VERSION \
            postgresql-client-$PG_VERSION \
            postgresql-contrib-$PG_VERSION \
-           postgresql-doc-$PG_VERSION \
            postgresql-$PG_VERSION-plv8 \
-           postgresql-plpython-$PG_VERSION \
-           python \
-           python3 \
-           pwgen \
       && apt-get clean \
       && rm -rf /var/lib/apt/lists/* \
       && rm -rf /tmp/*
@@ -40,7 +35,6 @@ VOLUME ["${PG_BASE}"]
 
 EXPOSE 5432
 
-ENTRYPOINT ["docker-entrypoint.sh"]
 WORKDIR /PostgreSQL
 ADD . /PostgreSQL
 
