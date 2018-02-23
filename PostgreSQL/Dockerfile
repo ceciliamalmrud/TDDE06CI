@@ -1,6 +1,5 @@
 FROM ubuntu:latest
 
-ENV LANG de_DE.UTF-8
 ENV PG_VERSION 9.6
 #ENV PG_PASSWORD
 ENV PG_BASE /var/lib/postgresql
@@ -11,9 +10,6 @@ ENV PG_CONFIG_FILE ${PG_CONFIG_DIR}/postgresql.conf
 ENV PG_BINDIR /usr/lib/postgresql/${PG_VERSION}/bin
 
 RUN apt-get update && apt-get upgrade -y \
-      && apt-get install -y --no-install-recommends \
-           locales \
-      && locale-gen $LANG && update-locale LANG=$LANG \
       && apt-get install -y --no-install-recommends \
            postgresql-$PG_VERSION \
            postgresql-client-$PG_VERSION \
