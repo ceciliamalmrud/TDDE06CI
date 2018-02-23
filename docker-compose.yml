@@ -1,7 +1,7 @@
 version: "2"
 services:
   db:
-    image: postgres1
+    build: ./PostgreSQL
     environment:
       POSTGRES_USER: postgres
 
@@ -15,6 +15,6 @@ services:
       - app
 
   app:
-    image: goapp1
+    build: ./GOApplication
     depends_on:
       - db
