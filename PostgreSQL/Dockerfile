@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-ENV PG_VERSION 1016.04 (xenial)16.04 (xenial)
+ENV PG_VERSION 10
 #ENV PG_PASSWORD
 ENV PG_BASE /var/lib/postgresql
 ENV PG_PASSWORD_FILE ${PG_BASE}/pwfile
