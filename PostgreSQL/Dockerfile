@@ -6,7 +6,7 @@ ENV PG_BASE /var/lib/postgresql
 ENV PG_PASSWORD_FILE ${PG_BASE}/pwfile
 ENV PG_DATA ${PG_BASE}/${PG_VERSION}/main
 ENV PG_CONFIG_DIR /etc/postgresql/${PG_VERSION}/main
-ENV PG_CONFIG_FILE ${PG_CONFIG_DIR}/postgresql.conf
+ENV PG_CONFIG_FILE ${PG_CONFIG_DIR}/postgresql.auto.conf
 ENV PG_BINDIR /usr/lib/postgresql/${PG_VERSION}/bin
 
 RUN apt-get update && apt-get upgrade -y \
