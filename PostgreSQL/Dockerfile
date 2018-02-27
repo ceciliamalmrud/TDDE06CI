@@ -36,5 +36,5 @@ EXPOSE 5432
 WORKDIR /PostgreSQL
 ADD . /PostgreSQL
 
-CMD ["postgres", "-D", "${PG_DATA}", "-c", "config_file=${PG_CONFIG_FILE}"]
+ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["psql", "-U", "postgres", "-f", "schema.sql", "-p", "5432", "-v", "/var/run/postgresql:/var/run/postgresql", "postgres"]
