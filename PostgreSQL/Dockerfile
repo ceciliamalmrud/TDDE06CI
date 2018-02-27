@@ -37,4 +37,4 @@ WORKDIR /PostgreSQL
 ADD . /PostgreSQL
 
 CMD ["postgres", -D", "${PG_DATA}", "-c", "config_file=${PG_CONFIG_FILE}"]
-CMD ["psql", "-U", "postgres", "-f", "schema.sql", "-p", "5432", "-h", "postgres", "-v", "/var/run/postgresql:/var/run/postgresql", "postgres"]
+CMD ["psql", "-U", "postgres", "-f", "schema.sql", "-p", "5432", "-v", "/var/run/postgresql:/var/run/postgresql", "postgres"]
