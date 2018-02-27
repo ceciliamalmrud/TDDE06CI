@@ -30,6 +30,12 @@ RUN echo "host all  all    0.0.0.0/0  md5" >> $PG_CONFIG_DIR/pg_hba.conf \
       && echo "listen_addresses='*'" >> $PG_CONFIG_FILE
 
 USER postgres
+
+RUN    /etc/init.d/postgresql start &&\
+    psql --command "CREATE USER postgres;" &&\
+    createdb -O postgres postgres
+RUN psql -U postgres -f schema.sql -p 5432 postgres
+
 ENV PATH $PATH:/usr/lib/postgresql/$PG_VERSION/bin
 VOLUME ["${PG_BASE}"]
 
@@ -39,4 +45,3 @@ WORKDIR /PostgreSQL
 ADD . /PostgreSQL
 
 ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["psql", "-U", "postgres", "-f", "schema.sql", "-p", "5432", "postgres"]
