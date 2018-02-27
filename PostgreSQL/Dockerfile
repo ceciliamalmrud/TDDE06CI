@@ -18,10 +18,12 @@ RUN apt-get update && apt-get upgrade -y \
       && apt-get clean \
       && rm -rf /var/lib/apt/lists/* \
       && rm -rf /tmp/*
+COPY docker-entrypoint.sh /usr/local/bin/
 
 RUN rm -rf "$PG_BASE" && mkdir -p "$PG_BASE" && chown -R postgres:postgres "$PG_BASE" \
       && mkdir -p /var/run/postgresql/$PG_VERSION-main.pg_stat_tmp \
-      && chown -R postgres:postgres /var/run/postgresql && chmod g+s /var/run/postgresql
+      && chown -R postgres:postgres /var/run/postgresql && chmod g+s /var/run/postgresql \
+      && chmod +x /usr/local/bin/docker-entrypoint.sh
 
 RUN echo "host all  all    0.0.0.0/0  md5" >> $PG_CONFIG_DIR/pg_hba.conf \
       && echo "host all  all    ::/0  md5" >> $PG_CONFIG_DIR/pg_hba.conf \
