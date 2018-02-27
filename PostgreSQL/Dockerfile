@@ -35,10 +35,10 @@ RUN echo "host all  all    0.0.0.0/0  md5" >> $PG_CONFIG_DIR/pg_hba.conf \
 
 USER postgres
 
-RUN    /etc/init.d/postgresql start &&\
-    psql --command "CREATE USER postgres;" &&\
-    createdb -O postgres postgres
-RUN psql -U postgres -f schema.sql -p 5432 postgres
+RUN    /etc/init.d/postgresql start
+RUN    psql --command "CREATE USER postgres; WITH SUPERUSER PASSWORD 'docker';"
+RUN    createdb -O postgres postgres
+RUN    psql -U postgres -f schema.sql -p 5432 postgres
 
 #ENV PATH $PATH:/usr/lib/postgresql/$PG_VERSION/bin
 VOLUME ["${PG_BASE}"]
