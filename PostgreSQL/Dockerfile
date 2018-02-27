@@ -1,4 +1,6 @@
 FROM ubuntu:latest
+WORKDIR /PostgreSQL
+ADD . /PostgreSQL
 
 ENV PG_VERSION 9.5
 #ENV PG_PASSWORD
@@ -9,6 +11,8 @@ ENV PG_CONFIG_DIR /etc/postgresql/${PG_VERSION}/main
 ENV PG_CONFIG_FILE ${PG_CONFIG_DIR}/postgresql.conf
 ENV PG_BINDIR /usr/lib/postgresql/${PG_VERSION}/bin
 
+
+
 RUN apt-get update && apt-get upgrade -y \
       && apt-get install -y --no-install-recommends \
            postgresql-$PG_VERSION \
@@ -18,12 +22,12 @@ RUN apt-get update && apt-get upgrade -y \
       && apt-get clean \
       && rm -rf /var/lib/apt/lists/* \
       && rm -rf /tmp/*
-COPY docker-entrypoint.sh /usr/local/bin/
+#COPY docker-entrypoint.sh /usr/local/bin/
 
 RUN rm -rf "$PG_BASE" && mkdir -p "$PG_BASE" && chown -R postgres:postgres "$PG_BASE" \
       && mkdir -p /var/run/postgresql/$PG_VERSION-main.pg_stat_tmp \
-      && chown -R postgres:postgres /var/run/postgresql && chmod g+s /var/run/postgresql \
-      && chmod +x /usr/local/bin/docker-entrypoint.sh
+      && chown -R postgres:postgres /var/run/postgresql && chmod g+s /var/run/postgresql 
+      #&& chmod +x /usr/local/bin/docker-entrypoint.sh
 
 RUN echo "host all  all    0.0.0.0/0  md5" >> $PG_CONFIG_DIR/pg_hba.conf \
       && echo "host all  all    ::/0  md5" >> $PG_CONFIG_DIR/pg_hba.conf \
@@ -36,12 +40,10 @@ RUN    /etc/init.d/postgresql start &&\
     createdb -O postgres postgres
 RUN psql -U postgres -f schema.sql -p 5432 postgres
 
-ENV PATH $PATH:/usr/lib/postgresql/$PG_VERSION/bin
+#ENV PATH $PATH:/usr/lib/postgresql/$PG_VERSION/bin
 VOLUME ["${PG_BASE}"]
 
 EXPOSE 5432
 
-WORKDIR /PostgreSQL
-ADD . /PostgreSQL
-
-ENTRYPOINT ["docker-entrypoint.sh"]
+#ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["/usr/lib/postgresql/9.5/bin/postgres", "-D", "/var/lib/postgresql/9.5/main", "-c", "config_file=/etc/postgresql/9.5/main/postgresql.conf"]
