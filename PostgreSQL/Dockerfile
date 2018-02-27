@@ -39,4 +39,4 @@ WORKDIR /PostgreSQL
 ADD . /PostgreSQL
 
 ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["psql", "-U", "postgres", "-f", "schema.sql", "-p", "5432", "-v", "/var/run/postgresql:/var/run/postgresql", "postgres"]
+CMD ["psql", "-U", "postgres", "-f", "schema.sql", "-p", "5432", "postgres"]
