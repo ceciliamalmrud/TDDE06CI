@@ -34,15 +34,13 @@ RUN echo "host all  all    0.0.0.0/0  md5" >> $PG_CONFIG_DIR/pg_hba.conf \
 
 USER postgres
 
-RUN /usr/lib/postgresql/9.5/bin/postgres -D $PG_DATA -c config_file=$PG_CONFIG_FILE
-
-
-RUN    psql --command "CREATE USER postgres; WITH SUPERUSER PASSWORD 'docker';"
-RUN    createdb -O postgres postgres
-RUN    psql -U postgres -f schema.sql -p 5432 postgres
-
 WORKDIR /PostgreSQL
 ADD . /PostgreSQL
+
+RUN /usr/lib/postgresql/9.5/bin/postgres -D $PG_DATA -c config_file=$PG_CONFIG_FILE & sleep 1 \
+#&& psql --command "CREATE USER postgres WITH SUPERUSER PASSWORD 'docker';" \
+#&& createdb -O postgres postgres \
+&& psql -U postgres -f schema.sql -p 5432 postgres
 
 #ENV PATH $PATH:/usr/lib/postgresql/$PG_VERSION/bin
 VOLUME ["${PG_BASE}"]
