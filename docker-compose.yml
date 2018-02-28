@@ -24,3 +24,5 @@ services:
     build: ./GOApplication
     depends_on:
       - db
+volumes:
+  postgresVolume:
