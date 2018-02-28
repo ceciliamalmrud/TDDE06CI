@@ -22,7 +22,8 @@ RUN apt-get update && apt-get upgrade -y \
       && rm -rf /tmp/*
 #COPY docker-entrypoint.sh /usr/local/bin/
 
-RUN rm -rf "$PG_BASE" && mkdir -p "$PG_BASE" && chown -R postgres:postgres "$PG_BASE" \
+# RUN rm -rf "$PG_BASE" && mkdir -p "$PG_BASE" \
+RUN chown -R postgres:postgres "$PG_BASE" \
       && mkdir -p /var/run/postgresql/$PG_VERSION-main.pg_stat_tmp \
       && chown -R postgres:postgres /var/run/postgresql && chmod g+s /var/run/postgresql 
       #&& chmod +x /usr/local/bin/docker-entrypoint.sh
@@ -33,7 +34,9 @@ RUN echo "host all  all    0.0.0.0/0  md5" >> $PG_CONFIG_DIR/pg_hba.conf \
 
 USER postgres
 
-RUN    /etc/init.d/postgresql start
+RUN /usr/lib/postgresql/9.5/bin/postgres -D $PG_DATA -c config_file=$PG_CONFIG_FILE
+
+
 RUN    psql --command "CREATE USER postgres; WITH SUPERUSER PASSWORD 'docker';"
 RUN    createdb -O postgres postgres
 RUN    psql -U postgres -f schema.sql -p 5432 postgres
