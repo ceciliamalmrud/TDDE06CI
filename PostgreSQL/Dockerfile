@@ -1,6 +1,4 @@
 FROM ubuntu:latest
-WORKDIR /PostgreSQL
-ADD . /PostgreSQL
 
 ENV PG_VERSION 9.5
 #ENV PG_PASSWORD
@@ -35,10 +33,13 @@ RUN echo "host all  all    0.0.0.0/0  md5" >> $PG_CONFIG_DIR/pg_hba.conf \
 
 USER postgres
 
-RUN    /etc/init.d/postgresql8 start
+RUN    /etc/init.d/postgresql start
 RUN    psql --command "CREATE USER postgres; WITH SUPERUSER PASSWORD 'docker';"
 RUN    createdb -O postgres postgres
 RUN    psql -U postgres -f schema.sql -p 5432 postgres
+
+WORKDIR /PostgreSQL
+ADD . /PostgreSQL
 
 #ENV PATH $PATH:/usr/lib/postgresql/$PG_VERSION/bin
 VOLUME ["${PG_BASE}"]
