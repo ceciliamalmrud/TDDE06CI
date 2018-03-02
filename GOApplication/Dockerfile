@@ -3,6 +3,7 @@ WORKDIR /go/src/app
 ADD . /go/src/app
 
 RUN go get -d -v ./...
+RUN export GOPATH=/tmp/go
 RUN go get github.com/lib/pq
 RUN go install -v ./...
 
