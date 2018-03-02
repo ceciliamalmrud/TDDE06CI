@@ -38,9 +38,9 @@ WORKDIR /PostgreSQL
 ADD . /PostgreSQL
 
 RUN /usr/lib/postgresql/9.5/bin/postgres -D $PG_DATA -c config_file=$PG_CONFIG_FILE && sleep 1 \
-#&& psql --command "CREATE USER postgres WITH SUPERUSER PASSWORD 'docker';" \
-&& createdb -O postgres postgres \
-&& psql -U postgres -f schema.sql -p 5432 postgres
+&& psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" \
+&& createdb -O docker docker \
+&& psql -U docker -f schema.sql -p 5432 docker
 
 #ENV PATH $PATH:/usr/lib/postgresql/$PG_VERSION/bin
 VOLUME ["${PG_BASE}"]
