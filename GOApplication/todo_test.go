@@ -24,7 +24,7 @@ func setup(t *testing.T) {
     db := ConnectDb()
     defer db.Close()
 
-    sqlData, err := ioutil.ReadFile("schema.sql")
+    sqlData, err := ioutil.ReadFile("../PostgreSQL/schema.sql")
     checkFail(t, err)
 
     sqlStmts := string(sqlData)
