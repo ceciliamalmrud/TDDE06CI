@@ -9,7 +9,6 @@ import (
     "strconv"
     "encoding/json"
     "bytes"
-    "path/filepath"
 )
 
 // checkFail fails the tests if err is an error (not nil)
@@ -24,8 +23,7 @@ func checkFail(t *testing.T, err error) {
 func setup(t *testing.T) {
     db := ConnectDb()
     defer db.Close()
-//sqlData, err := ioutil.ReadFile("schema.sql")
-    sqlData, err := ioutil.ReadFile(filepath.Abs("../PostgreSQL/schema.sql"))
+    sqlData, err := ioutil.ReadFile("schema.sql")
     checkFail(t, err)
 
     sqlStmts := string(sqlData)
