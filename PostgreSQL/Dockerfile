@@ -39,7 +39,7 @@ ADD . /PostgreSQL
 
 RUN /usr/lib/postgresql/9.5/bin/postgres -D $PG_DATA -c config_file=$PG_CONFIG_FILE && sleep 1 \
 #&& psql --command "CREATE USER postgres WITH SUPERUSER PASSWORD 'docker';" \
-#&& createdb -O postgres postgres \
+&& createdb -O postgres postgres \
 && psql -U postgres -f schema.sql -p 5432 postgres
 
 #ENV PATH $PATH:/usr/lib/postgresql/$PG_VERSION/bin
