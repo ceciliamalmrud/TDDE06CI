@@ -7,5 +7,5 @@ RUN export GOPATH=/tmp/go
 RUN go get github.com/lib/pq
 RUN go install -v ./...
 
-CMD ["go test"]
+CMD ["go", "test"]
 CMD ["app"]
