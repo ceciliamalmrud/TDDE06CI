@@ -30,7 +30,8 @@ RUN chown -R postgres:postgres "$PG_BASE" \
 
 RUN echo "host all  all    0.0.0.0/0  md5" >> $PG_CONFIG_DIR/pg_hba.conf \
       && echo "host all  all    ::/0  md5" >> $PG_CONFIG_DIR/pg_hba.conf \
-      && echo "listen_addresses='*'" >> $PG_CONFIG_FILE
+      && echo "listen_addresses='*'" >> $PG_CONFIG_FILE \
+      && echo "docker postgres docker" >> $PG_CONFIG_DIR/pg_ident.conf
 
 USER postgres
 
