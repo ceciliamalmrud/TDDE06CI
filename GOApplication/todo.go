@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	databaseUser = "dockerpostgres"
+	databaseUser = "docker"
 	databaseHost = "db"
 	databaseName = "docker"
 	databasePassword = "docker"
