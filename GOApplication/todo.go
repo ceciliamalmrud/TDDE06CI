@@ -13,10 +13,10 @@ import (
 )
 
 const (
-	databaseUser = "postgres"
+	databaseUser = "dockerpostgres"
 	databaseHost = "db"
-	databaseName = "postgres"
-	databasePassword = "postgresdocker"
+	databaseName = "docker"
+	databasePassword = "docker"
 )
 
 type Task struct {
