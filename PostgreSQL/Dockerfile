@@ -30,14 +30,14 @@ RUN chown -R postgres:postgres "$PG_BASE" \
 
 RUN echo "host all  all    0.0.0.0/0  md5" >> $PG_CONFIG_DIR/pg_hba.conf \
       && echo "host all  all    ::/0  md5" >> $PG_CONFIG_DIR/pg_hba.conf \
-      && echo "listen_addresses='*'" >> $PG_CONFIG_FILE
+      && echo "listen_addresses='*'" >> $PG_CONFIG_FILE&
 
 USER postgres
 
 WORKDIR /PostgreSQL
 ADD . /PostgreSQL
 
-RUN /usr/lib/postgresql/9.5/bin/postgres -D $PG_DATA -c config_file=$PG_CONFIG_FILE && sleep 1 \
+RUN /usr/lib/postgresql/9.5/bin/postgres -D $PG_DATA -c config_file=$PG_CONFIG_FILE & sleep 1 \
 && psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" \
 && createdb -O docker docker \
 && psql -U docker -f schema.sql -p 5432 docker
