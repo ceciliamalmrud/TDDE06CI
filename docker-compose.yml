@@ -3,7 +3,7 @@ services:
   db:
     build: ./PostgreSQL
     environment:
-      POSTGRES_USER: postgres
+      POSTGRES_USER: docker
     expose:
       - "5432"
     volumes:
