@@ -31,7 +31,7 @@ RUN chown -R postgres:postgres "$PG_BASE" \
 RUN echo "host all  all    0.0.0.0/0  md5" >> $PG_CONFIG_DIR/pg_hba.conf \
       && echo "host all  all    ::/0  md5" >> $PG_CONFIG_DIR/pg_hba.conf \
       && echo "listen_addresses='*'" >> $PG_CONFIG_FILE \
-      && echo "docker postgres docker" >> $PG_CONFIG_DIR/pg_ident.conf
+      #&& echo "docker postgres docker" >> $PG_CONFIG_DIR/pg_ident.conf
 
 USER postgres
 
@@ -39,9 +39,10 @@ WORKDIR /PostgreSQL
 ADD . /PostgreSQL
 
 RUN /usr/lib/postgresql/9.5/bin/postgres -D $PG_DATA -c config_file=$PG_CONFIG_FILE & sleep 1 \
-&& psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" \
-&& createdb -O docker docker \
-&& psql -U docker -f schema.sql -p 5432 docker
+ #&& psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" \
+&& psql -c "ALTER USER postgres WITH PASSWORD 'postgres'" -d postgres
+&& createdb -O postgres postgres \
+&& psql -U postgres -f schema.sql -p 5432 postgres
 
 #ENV PATH $PATH:/usr/lib/postgresql/$PG_VERSION/bin
 VOLUME ["${PG_BASE}"]
