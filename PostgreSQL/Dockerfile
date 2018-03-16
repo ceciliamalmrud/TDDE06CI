@@ -49,4 +49,4 @@ VOLUME ["${PG_BASE}"]
 EXPOSE 5432
 
 #ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["/usr/lib/postgresql/9.5/bin/postgres", "-D", "/var/lib/postgresql/9.5/main", "-c", "config_file=/etc/postgresql/9.5/main/postgresql.conf"]
+CMD ["/usr/lib/postgresql/9.5/bin/postgres", "-D", "/var/lib/postgresql/9.5/main", "-c", "config_file=/etc/postgresql/9.5/main/postgresql.conf" "&", "sleep", "5"]
