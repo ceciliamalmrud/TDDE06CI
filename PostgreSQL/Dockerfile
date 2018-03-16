@@ -40,7 +40,8 @@ ADD . /PostgreSQL
 RUN /usr/lib/postgresql/9.5/bin/postgres -D $PG_DATA -c config_file=$PG_CONFIG_FILE & sleep 1 \
 && psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" \
 && createdb -O docker docker \
-&& psql -U docker -f schema.sql -p 5432 docker
+&& PGPASSWORD=docker psql -U docker -w -f schema.sql --host=127.0.0.1 -p 5432 docker
+ #&& psql -U docker -f schema.sql -p 5432 docker
 
 #ENV PATH $PATH:/usr/lib/postgresql/$PG_VERSION/bin
 VOLUME ["${PG_BASE}"]
