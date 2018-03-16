@@ -22,6 +22,8 @@ services:
 
   app:
     build: ./GOApplication
+    expose:
+      - "8080"
     depends_on:
       - db
 volumes:
