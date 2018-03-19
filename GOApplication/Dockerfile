@@ -7,4 +7,4 @@ RUN export GOPATH=/tmp/go
 RUN go get github.com/lib/pq
 RUN go install -v ./...
 
-#CMD ["go", "test"]
+CMD ["./wait-for-postgres.sh", "db", "go", "test"]
