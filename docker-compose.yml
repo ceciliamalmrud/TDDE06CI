@@ -26,5 +26,6 @@ services:
       - "8080"
     depends_on:
       - db
+    command: ["./wait-for-postgres.sh", "db", "go", "./GOApplication/test"]
 volumes:
   postgresVolume:
