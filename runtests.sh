@@ -1,7 +1,7 @@
 docker stop postgres1 || true && docker rm postgres1 || true
 docker stop goapp1 || true && docker rm goapp1 || true
 
-docker build -t go GoApplication
+docker build -t go GOApplication
 
 docker build -t pg PostgreSQL
 
