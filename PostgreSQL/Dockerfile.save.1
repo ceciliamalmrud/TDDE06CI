@@ -1,0 +1,20 @@
+FROM ubuntu:latest
+
+ENV VERSION 9.5
+
+RUN apt-get update -y  
+RUN apt-get install postgresql postgresql-contrib -y
+
+RUN mv /etc/postgresql/$VERSION/main/pg_hba.conf /etc/postgresql/$VERSION/main/pg_hba.conf.backup  
+CO  
+RUN echo "listen_addresses = '*'" >> /etc/postgresql/$VERSION/main/postgresql.conf
+
+#COPY entrypoint.sh /  
+#ENTRYPOINT sudo /entrypoint.sh
+
+EXPOSE 5432
+
+WORKDIR /PostgreSQL
+ADD . /PostgreSQL
+
+CMD ["psql", "-U", "postgres", "-f", "schema.sql", "-p", "5432", "postgres"]

@@ -1,0 +1,23 @@
+version: "2"
+services:
+  db:
+    build: ./PostgreSQL
+    environment:
+      POSTGRES_USER: postgres
+    
+	expose:
+     - "5432"
+
+  web:
+    build: ./NGINX
+    ports:
+     - "6060:80"
+    environment:
+     - NGINX_PORT=80
+    depends_on:
+      - app
+
+  app:
+    build: ./GOApplication
+    depends_on:
+      - db

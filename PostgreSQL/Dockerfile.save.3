@@ -1,0 +1,20 @@
+FROM ubuntu:latest
+
+RUN apt-get update && apt-get upgrade -y \
+      && apt-get install -y --no-install-recommends \
+      && apt-get install postgresql postgresql-contrib \
+      && apt-get clean \
+      && rm -rf /var/lib/apt/lists/* \
+      && rm -rf /tmp/*
+
+USER postgres
+ENV PA
+VOLUME ["${PG_BASE}"]
+
+EXPOSE 5432
+
+WORKDIR /PostgreSQL
+ADD . /PostgreSQL
+
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["psql", "-U", "postgres", "-f", "schema.sql", "-p", "5432", "postgres"]
